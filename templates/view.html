@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submitted Resumes</title>
+    <style>
+        /* Base styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #c8e6c9);
+            padding: 30px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            color: #1b2730;
+        }
+
+        /* Table container */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 900px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(90deg, #8e2de2, #4a00e0);
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9fafb;
+        }
+
+        a {
+            color: #4a00e0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Badge for candidate level (optional) */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .excellent {
+            background-color: #38a169; /* green */
+        }
+
+        .good {
+            background-color: #3182ce; /* blue */
+        }
+
+        .average {
+            background-color: #dd6b20; /* orange */
+        }
+
+        .needs-improvement {
+            background-color: #e53e3e; /* red */
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            table {
+                min-width: 700px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            table {
+                min-width: 100%;
+            }
+        }
+
+        /* Upload link button */
+        .upload-link {
+            display: inline-block;
+            margin-top: 20px;
+            background: linear-gradient(90deg, #8e2de2, #4a00e0);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .upload-link:hover {
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Experience column formatting */
+        td pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+    <h2>Submitted Resumes</h2>
+
+    <div class="table-container">
+        {% if resumes %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>File</th>
+                <th>Detected Skills</th>
+                <th>Experience Lines</th>
+                <th>Experience Duration</th>
+            </tr>
+            {% for r in resumes %}
+            <tr>
+                <td>{{ r.name }}</td>
+                <td>{{ r.email }}</td>
+                <td>{{ r.phone }}</td>
+                <td><a href="{{ url_for('static', filename='../resumes/' + r.file) }}" target="_blank">{{ r.file }}</a></td>
+                <td>{{ r.skills }}</td>
+                <td><pre>{{ r.experience | safe }}</pre></td>
+                <td>{{ r.duration }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="no-data">No resumes uploaded yet.</p>
+        {% endif %}
+    </div>
+
+    <div style="text-align:center;">
+        <a href="/submit" class="upload-link">Upload Another Resume</a>
+    </div>
+</body>
+</html>

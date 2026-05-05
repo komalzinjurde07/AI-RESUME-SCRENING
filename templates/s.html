@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Resume</title>
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body gradient background */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #c8e6c9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Form card */
+        .form-container {
+            background-color: #ffffff;
+            padding: 45px 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 520px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        /* Heading */
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 28px;
+            color: #1b2730;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #4b5d67;
+        }
+
+        /* Input & textarea styling */
+        input[type=text],
+        input[type=email],
+        input[type=file],
+        textarea {
+            width: 100%;
+            padding: 14px 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #b0bec5;
+            font-size: 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type=text]:focus,
+        input[type=email]:focus,
+        input[type=file]:focus,
+        textarea:focus {
+            border-color: #5e35b1;
+            box-shadow: 0 0 6px rgba(94, 53, 177, 0.3);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Optional note */
+        .optional-note {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: -14px;
+            margin-bottom: 18px;
+        }
+
+        /* Submit button */
+        input[type=submit] {
+            background: linear-gradient(90deg, #8e2de2, #4a00e0);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type=submit]:hover {
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Placeholder styling */
+        ::placeholder {
+            color: #a0aec0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            input[type=submit] {
+                padding: 12px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Submit Your Resume</h2>
+        <form action="/submit" method="post" enctype="multipart/form-data">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Enter your full name" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+
+            <label>Phone</label>
+            <input type="text" name="phone" placeholder="Enter your phone number" required>
+
+            <label>Resume (PDF only)</label>
+            <input type="file" name="resume" accept=".pdf" required>
+
+            <label>Job Description (Optional)</label>
+            <textarea name="job_description" placeholder="Paste the Job Description here"></textarea>
+            <div class="optional-note">Providing the job description helps match your skills for better scoring.</div>
+
+            <input type="submit" value="Submit Resume">
+        </form>
+    </div>
+</html>

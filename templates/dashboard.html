@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4b79a1;
+            color: #fff;
+            padding: 20px 40px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background-color: #fff;
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .card p {
+            margin: 0;
+            font-size: 18px;
+            color: #555;
+        }
+        .skills-chart {
+            margin-top: 40px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .skill-bar {
+            margin: 10px 0;
+        }
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .bar-container {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 25px;
+        }
+        .bar-fill {
+            height: 100%;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 25px;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 20px;
+            background-color:#4b79a1;
+        }
+        .actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .actions a {
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 0 10px;
+            background-color: #4b79a1;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .actions a:hover {
+            background-color: #35567a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📊 Resume Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <!-- SUMMARY CARDS -->
+    <div class="cards">
+        <div class="card">
+            <h2>{{ total }}</h2>
+            <p>Total Resumes</p>
+        </div>
+        <div class="card">
+            <h2>{{ avg }}%</h2>
+            <p>Average Score</p>
+        </div>
+        <div class="card">
+            <h2>{{ top_skill_name }}</h2>
+            <p>Top Skill</p>
+        </div>
+    </div>
+
+    <!-- SKILLS SECTION (FIXED LOGIC) -->
+    <div class="skills-chart">
+        <h3>Top Skills</h3>
+
+        {% if total > 0 %}
+            {% for skill, count in skills.items() %}
+                {% if count > 0 %}
+                <div class="skill-bar">
+                    <div class="skill-name">
+                        {{ skill.capitalize() }} ({{ count }})
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill"
+                             style="width: {{ (count * 100 / total) | round(0) }}%;">
+                            {{ (count * 100 / total) | round(0) }}%
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No resume data available.</p>
+        {% endif %}
+
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+        <a href="/submit">➕ Upload Resume</a>
+        <a href="/view">📄 View All Resumes</a>
+    </div>
+
+</div>
+
+</body>
+</html>
